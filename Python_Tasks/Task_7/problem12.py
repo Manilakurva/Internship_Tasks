@@ -1,42 +1,38 @@
 # Problem 12:Making Anagrams
 # HackerRank Link:https://www.hackerrank.com/challenges/making-anagrams/problem
 
-#include <bits/stdc++.h>
+import math
+import os
+import random
+import re
+import sys
 
-using namespace std;
+def makingAnagrams(s1, s2):
+    
+    freq = [0] * 26
 
-int makingAnagrams(string s1, string s2) {
-    int freq[26] = {0}; 
-    for (char c : s1) { 
-        freq[c - 'a']++; } 
-        for (char c : s2) {
-             freq[c - 'a']--; 
-        } 
-        int deletions = 0; 
-        for (int i = 0; i < 26; i++) { 
-            deletions += abs(freq[i]); 
-        
-        } 
-        
-        return deletions;
+    for char in s1:
+       freq[ord(char) - ord('a')] += 1
 
-}
+    for char in s2:
+       freq[ord(char) - ord('a')] -= 1
 
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
+    deletions = 0
 
-    string s1;
-    getline(cin, s1);
+    for count in freq:
+       deletions += abs(count)
 
-    string s2;
-    getline(cin, s2);
+    return deletions
 
-    int result = makingAnagrams(s1, s2);
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    fout << result << "\n";
+    s1 = input()
 
-    fout.close();
+    s2 = input()
 
-    return 0;
-}
+    result = makingAnagrams(s1, s2)
+
+    fptr.write(str(result) + '\n')
+
+    fptr.close()
