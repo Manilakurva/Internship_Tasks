@@ -1,33 +1,30 @@
 # Problem 10:CamelCase
 # HackerRank Link:https://www.hackerrank.com/challenges/camelcase/problem
 
-#include <bits/stdc++.h>
+import math
+import os
+import random
+import re
+import sys
 
-using namespace std;
+def camelcase(s):
+    count = 1
 
-int camelcase(string s) {
-    int count = 1; 
-    
-    for (int i = 0; i < s.length(); i++){
+    for char in s:
+      if char.isupper():
         
-         if (isupper(s[i])) { count++; 
-         }
-    }
-    return count;
-}
+        count += 1
 
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
+    return count
 
-    string s;
-    getline(cin, s);
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
 
-    int result = camelcase(s);
+    s = input()
 
-    fout << result << "\n";
+    result = camelcase(s)
 
-    fout.close();
+    fptr.write(str(result) + '\n')
 
-    return 0;
-}
+    fptr.close()
+
