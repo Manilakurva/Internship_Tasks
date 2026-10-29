@@ -1,56 +1,42 @@
 # Problem 13:Sherlock and the Valid String
 # HackerRank Link: https://www.hackerrank.com/challenges/sherlock-and-valid-string/problem
 
-#include <bits/stdc++.h>
+import math
+import os
+import random
+import re
+import sys
 
-using namespace std;
-
-string isValid(string s) {
-    int freq[26] = {0}; 
-    for (char c : s) { 
-        freq[c - 'a']++; 
-    } 
-    map<int, int> counts; 
-    for (int i = 0; i < 26; i++) { 
-        if (freq[i] > 0) { 
-            counts[freq[i]]++; 
-        } 
-    } 
-    if (counts.size() == 1) {
-         return "YES"; 
-    } 
-    if (counts.size() != 2) { 
-        return "NO"; 
-    } 
+from collections import Counter
+def isValid(s):
     
-    auto it = counts.begin(); 
-    int f1 = it->first; 
-    int c1 = it->second; 
-    it++; int f2 = it->first; 
-    int c2 = it->second; 
-    if ((f1 == 1 && c1 == 1) || (f2 == 1 && c2 == 1)) { 
-        return "YES"; 
-    } 
-    if (f2 == f1 + 1 && c2 == 1) { 
-        return "YES"; 
-    } 
-        
-    return "NO";
+    freq = Counter(s)
+    counts = Counter(freq.values())
 
-}
+    if len(counts) == 1:
+       return "YES"
 
-int main()
-{
-    ofstream fout(getenv("OUTPUT_PATH"));
+    if len(counts) != 2:
+       return "NO"
 
-    string s;
-    getline(cin, s);
+    (f1, c1), (f2, c2) = counts.items()
 
-    string result = isValid(s);
+    if (f1 == 1 and c1 == 1) or (f2 == 1 and c2 == 1):
+        return "YES"
 
-    fout << result << "\n";
+    if (abs(f1 - f2) == 1):
+        if (f1 > f2 and c1 == 1) or (f2 > f1 and c2 == 1):
+           return "YES"
 
-    fout.close();
+    return "NO"
 
-    return 0;
-}
+if __name__ == '__main__':
+    fptr = open(os.environ['OUTPUT_PATH'], 'w')
+
+    s = input()
+
+    result = isValid(s)
+
+    fptr.write(result + '\n')
+
+    fptr.close()
